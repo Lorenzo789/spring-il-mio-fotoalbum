@@ -20,6 +20,18 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
                   <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">
+                       Foto
+                    </a>
+                  </li>
+
+            	    <li class="nav-item">
+                     <a class="nav-link" th:href="@{/admin/category}">
+                        Category
+                     </a>
+              	  </li>
+                
+                  <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">
                         Logout
                     </a>
@@ -31,11 +43,17 @@
                     </a>
                   </li>
                   
+                   <li class="nav-item mx-2">
+                    <a class="nav-link btn btn-success" th:href="@{/admin/category/create}">
+                        Create New Category
+                    </a>
+                  </li>
+                  
                 </ul>
               </div>
 
             </div>
-
+            
         </nav>
     </header>
 </body>

@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Foto {
 	@NotNull
 	private boolean visible;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.DETACH)
 	@JsonIgnore
 	private List<Category> categories;
 	

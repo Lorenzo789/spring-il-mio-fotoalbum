@@ -23,11 +23,16 @@
 	          </a>
 	        </h5>
 	        
-			<p class="card-text">[[*{description}]]</p>
-	        <p class="card-text">[[*{tag}]]</p>
-	        
-	        <a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-warning">Edit</a>
-	        <a th:href="@{/admin/foto/delete/{id} (id=*{id})}" class="btn btn-danger">Delete</a>
+			<p class="card-text">Description: [[*{description}]]</p>
+	        <p class="card-text">#[[*{tag}]]</p>
+	        <span th:each="category : ${foto.categories}" class="fs-6">
+               [[${category.name}]] -
+            </span>
+
+	        <div class="mt-3">
+				<a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-warning">Edit</a>
+				<a th:href="@{/admin/foto/delete/{id} (id=*{id})}" class="btn btn-danger">Delete</a>
+			</div>
 		    
 		  </div>
 		  
