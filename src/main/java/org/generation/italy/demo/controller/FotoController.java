@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.generation.italy.demo.pojo.Category;
 import org.generation.italy.demo.pojo.Foto;
-import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.service.CategoryService;
 import org.generation.italy.demo.service.CommentService;
 import org.generation.italy.demo.service.FotoService;

@@ -11,17 +11,23 @@
 <body>
  	<header th:replace="~{frag :: header()}"></header>
     <main class="container mt-5 d-flex">
- 		<div class="card mx-3" style="width: 18rem;" th:each="foto : ${fotos}" th:object="${foto}">
+ 		<div class="card mx-3" style="width: 25rem;" th:each="foto : ${fotos}" th:object="${foto}">
  		
 		  <img th:src="*{url}" class="card-img-top" alt="...">
 		  
 		  <div class="card-body">
 		  
-		    <h5 class="card-title">[[*{title}]]</h5>
-		    <p class="card-text">[[*{description}]]</p>
-            <p class="card-text">[[*{tag}]]</p>
-		    <a th:href="@{/admin/foto/{id} (id=*{id})}" class="btn btn-primary">Show</a>
-        <a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-warning">Edit</a>
+			<h5 class="card-title">
+	          <a th:href="@{/admin/foto/{id} (id=*{id})}">
+	            [[*{title}]]
+	          </a>
+	        </h5>
+	        
+			<p class="card-text">[[*{description}]]</p>
+	        <p class="card-text">[[*{tag}]]</p>
+	        
+	        <a th:href="@{/admin/foto/update/{id} (id=*{id})}" class="btn btn-warning">Edit</a>
+	        <a th:href="@{/admin/foto/delete/{id} (id=*{id})}" class="btn btn-danger">Delete</a>
 		    
 		  </div>
 		  
