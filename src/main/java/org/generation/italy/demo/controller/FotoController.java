@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.generation.italy.demo.pojo.Category;
 import org.generation.italy.demo.pojo.Foto;
+import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.service.CategoryService;
 import org.generation.italy.demo.service.CommentService;
 import org.generation.italy.demo.service.FotoService;
@@ -86,6 +87,51 @@ public class FotoController {
 		}
 		
 		fotoService.save(foto);
+		
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/foto/update/{id}")
+	public String edit(@PathVariable("id") int id, Model model) {
+		
+		Optional<Foto> optFoto = fotoService.findById(id);
+		Foto foto = optFoto.get();
+		
+		model.addAttribute("foto", foto);
+		
+		List<Category> categories = categoryService.findAll();
+		
+		model.addAttribute("categories", categories);
+		
+		return "foto-edit";
+	}
+	
+	@PostMapping("/foto/update")
+	public String update(@Valid Foto foto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			System.err.println("ERROR ------------------------------------------");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------------------------------------------------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			return "redirect:/admin/foto/update/" + foto.getId();
+		}
+		
+		fotoService.save(foto);		
+		
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/foto/delete/{id}")
+	public String delete(@PathVariable("id") int id) {
+		
+		Optional<Foto> optFoto = fotoService.findById(id);
+		Foto foto = optFoto.get();
+		
+		fotoService.delete(foto);
 		
 		return "redirect:/admin";
 	}
