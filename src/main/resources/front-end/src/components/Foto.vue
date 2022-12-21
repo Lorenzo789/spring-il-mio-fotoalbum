@@ -11,9 +11,9 @@
 
         <div class="container mt-5">
             <div class="card mb-3 ms_height" v-for="foto in fotos" :key="foto.id">
-                <div class="row g-0">
+                <div class="row g-0 ms_overflow">
                     <div class="col-md-6">
-                        <img :src=foto.url alt="">
+                        <img :src=foto.url class="ms_img" alt="">
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
@@ -39,10 +39,12 @@
                                 Add a comment
                             </button>
 
-                            <div class="ms_overflow">
-                                <p v-for="comment in foto.comments" :key="comment.id">
-                                    {{ comment.text }}
-                                </p>  
+                            <div>
+                                <ul>
+                                    <li v-for="comment in foto.comments" :key="comment.id">
+                                        {{ comment.text }}
+                                    </li>  
+                                </ul>
                             </div>
 
                             <div v-if="activeFotoCommentId == foto.id" class="d-flex mt-4">
@@ -160,6 +162,12 @@ export default {
 <style lang="scss" scoped>
 .ms_overflow{
     overflow-y: scroll;
+}
+
+.ms_img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .ms_height{
