@@ -43,9 +43,7 @@ public class CategoryController {
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") int id, Model model) {
 		
-		Optional<Category> optCategory = categoryService.findById(id);
-		
-		Category selectedCategory = optCategory.get();
+		Category selectedCategory = categoryService.findById(id);
 		
 		model.addAttribute("selectedCategory", selectedCategory);
 		
@@ -90,48 +88,66 @@ public class CategoryController {
 		return "redirect:/admin/category";
 	}
 	
-//	@GetMapping("/update/{id}")
-//	public String edit(@PathVariable("id") int id, Model model) {
-//		
-//		Optional<Foto> optFoto = fotoService.findById(id);
-//		Foto foto = optFoto.get();
-//		
-//		model.addAttribute("foto", foto);
-//		
-//		List<Category> categories = categoryService.findAll();
-//		
-//		model.addAttribute("categories", categories);
-//		
-//		return "foto-edit";
-//	}
-//	
-//	@PostMapping("/update")
-//	public String update(@Valid Foto foto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-//		
-//		if (bindingResult.hasErrors()) {
-//			
-//			System.err.println("ERROR ------------------------------------------");
-//			System.err.println(bindingResult.getAllErrors());
-//			System.err.println("------------------------------------------------");
-//			
-//			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//			
-//			return "redirect:/admin/foto/update/" + foto.getId();
-//		}
-//		
-//		fotoService.save(foto);		
-//		
-//		return "redirect:/admin";
-//	}
-//	
-//	@GetMapping("/delete/{id}")
-//	public String delete(@PathVariable("id") int id) {
-//		
-//		Optional<Foto> optFoto = fotoService.findById(id);
-//		Foto foto = optFoto.get();
-//		
-//		fotoService.delete(foto);
-//		
-//		return "redirect:/admin";
-//	}
+	@GetMapping("/update/{id}")
+	public String edit(@PathVariable("id") int id, Model model) {
+		
+		Category category = categoryService.findById(id);
+		
+		model.addAttribute("category", category);
+		
+		List<Foto> fotos = fotoService.findAll();
+		
+		model.addAttribute("fotos", fotos);
+		
+		return "category-edit";
+	}
+	
+	@PostMapping("/update")
+	public String update(@Valid Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if (bindingResult.hasErrors()) {
+			
+			System.err.println("ERROR ------------------------------------------");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------------------------------------------------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			return "redirect:/admin/category/update/" + category.getId();
+		}
+		
+		Category oldCategory = categoryService.findById(category.getId());
+		
+		for (Foto f : oldCategory.getFoto()) {
+
+			f.removeCategory(category);
+			
+			List<Foto> fotos = category.getFoto();
+			
+			for (Foto foto : fotos) {
+				
+				foto.addCategory(category);
+			}
+		}
+		
+		categoryService.save(category);		
+		
+		return "redirect:/admin/category";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable("id") int id) {
+		
+		Category category = categoryService.findById(id);
+		
+		for (Foto f : category.getFoto()) {
+			
+			f.removeCategory(category);
+			
+		}
+		
+		categoryService.delete(category);
+		
+		return "redirect:/admin/category";
+	}
 }

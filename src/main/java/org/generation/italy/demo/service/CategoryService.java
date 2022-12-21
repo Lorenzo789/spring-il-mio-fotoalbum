@@ -24,9 +24,9 @@ public class CategoryService {
 		return categoryRepo.findAll();
 	}
 	
-	public Optional<Category> findById(int id) {
+	public Category findById(int id) {
 		
-		return categoryRepo.findById(id);
+		return categoryRepo.findById(id).get();
 	}
 	
 	public void delete(Category category) {

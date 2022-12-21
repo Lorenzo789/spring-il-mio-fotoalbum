@@ -23,7 +23,9 @@
 		</div>
         
         
-        <form method="POST" th:action="@{/admin/category/create}" th:object="${category}">
+        <form method="POST" th:action="@{/admin/category/update}" th:object="${category}">
+
+            <input type="number" name="id" th:field="*{id}" style="display:none">
 
             <div class="mb-3">
                 <label for="name" class="form-label">Category Name</label>
@@ -40,7 +42,7 @@
 				</div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
 
           </form>
     </main>

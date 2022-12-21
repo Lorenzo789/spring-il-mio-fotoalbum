@@ -124,6 +124,29 @@ public class Foto {
 	}
 	//setter and getter
 	
+	//custom methods
+	public void addCategory(Category category) {
+		
+		boolean finded = false;
+		
+		for(Category cat : getCategories()) {
+		
+			if (cat.getId() == category.getId()) {
+				finded = true;
+			}
+			
+		}
+		
+		if (!finded) {
+			getCategories().add(category);
+		}
+	}
+	
+	public void removeCategory(Category category) {
+		getCategories().remove(category);
+	}
+	//custom methods
+	
 	@Override
 	public String toString() {
 		
