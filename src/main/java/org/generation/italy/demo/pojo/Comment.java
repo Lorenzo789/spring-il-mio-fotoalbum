@@ -1,5 +1,7 @@
 package org.generation.italy.demo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Comment {
 	private String text;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "foto_id")
 	private Foto foto;
 	

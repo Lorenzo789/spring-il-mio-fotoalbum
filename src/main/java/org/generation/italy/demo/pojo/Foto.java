@@ -52,7 +52,6 @@ public class Foto {
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy = "foto")
-	@JsonIgnore
 	private List<Comment> comments;
 	
 	public Foto() {}

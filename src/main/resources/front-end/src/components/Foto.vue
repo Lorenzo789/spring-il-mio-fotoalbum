@@ -1,7 +1,6 @@
 <template>
     <main>
         <h1 class="text-center mt-3">Foto</h1>
-    
         
         <div class="d-flex justify-content-center mt-4">
             <div class="col-auto me-2">
@@ -10,9 +9,55 @@
             <button class="btn btn-success" @click="getSearchedFoto()">Search</button>
         </div>
 
+        <div class="container mt-5">
+            <div class="card mb-3" v-for="foto in fotos" :key="foto.id">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <img :src=foto.url class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
 
-        <div class="d-flex justify-content-between container mt-5">
-            <div v-for="foto in fotos" :key="foto.id">
+                            <h5 class="card-title">{{ foto.title }}</h5>
+
+                            <p class="card-text">
+                                <strong>Desc:</strong>
+                                {{ foto.description }}
+                            </p>
+
+                            <p class="card-text">
+                                #{{ foto.tag }}
+                            </p>
+
+                            <strong>Categories:</strong>
+
+                            <span v-for="category in foto.categories" :key="category.id">
+                                - {{ category.name }}
+                            </span>
+
+                            <button class="d-block my-3 btn btn-primary" @click="findActiveFotoId(foto.id)">
+                                Add a comment
+                            </button>
+
+                            <p v-for="comment in foto.comments" :key="comment.id">
+                                {{ comment.text }}
+                            </p>  
+
+                            <div v-if="activeFotoCommentId == foto.id" class="d-flex mt-4">
+                                <div class="col-auto me-2">
+                                    <input type="text" placeholder="Add A Comment" v-model="comment" class="form-control">
+                                </div>
+                                <button @click="createNewComment(foto.id)" class="btn btn-success">Add</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="px-5 mt-5">
+            <div v-for="foto in fotos" :key="foto.id" class="ms_card">
                 <div>
                     <img :src=foto.url alt="">
                     <h3>{{ foto.title }}</h3>
@@ -22,9 +67,20 @@
                     <span v-for="category in foto.categories" :key="category.id">
                         - {{ category.name }}
                     </span>
+                    <button @click="findActiveFotoId(foto.id)">
+                        Add a comment
+                    </button>
+                    <div v-for="comment in foto.comments" :key="comment.id">
+                          <p>{{ comment.text }}</p>  
+                    </div>
+
+                    <div v-if="activeFotoCommentId == foto.id">
+                        <input type="text" placeholder="Add A Comment" v-model="comment">
+                        <button @click="createNewComment(foto.id)" class="btn btn-success">Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </main>
 
@@ -34,7 +90,7 @@
 import axios from "axios";
 
 const URL_FOTO = "http://localhost:8080/api/1/foto";
-const URL_FOTO_W_CATEGORY = "http://localhost:8080/api/1/category";
+const URL_COMMENTS = "http://localhost:8080/api/1/comment";
 
 export default {
     name: 'Foto',
@@ -42,8 +98,9 @@ export default {
     data(){
         return{
             fotos: [],
-            fotosWCategories: [],
             searchedQuery: '',
+            comment: "",
+            activeFotoCommentId: -1,
         };
     },
 
@@ -74,25 +131,36 @@ export default {
             })
         },
 
-        getAllFotoWCategories(){
-            axios.get( URL_FOTO_W_CATEGORY + '/all')
+        createNewComment(id){
+            console.log(this.comment, id)
+            
+            axios.post(URL_COMMENTS + '/create/' + id + '/' + this.comment)
             .then((response) => {
-                this.fotosWCategories = response.data;
-                console.log(response.data);
+                const newComment = response.data;
+                this.getAllFoto();
             })
-            .catch((error) =>{
+            .catch((error) => {
                 console.log(error);
             })
+            this.comment = "";
+        },
+
+        findActiveFotoId(id){
+            this.activeFotoCommentId = id;
         }
     },
 
     created(){
         this.getAllFoto();
-        this.getAllFotoWCategories();
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.ms_card{
 
+    div{
+        display: flex;
+    }
+}
 </style>

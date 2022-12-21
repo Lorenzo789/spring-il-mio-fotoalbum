@@ -2,7 +2,6 @@ package org.generation.italy.demo.controller.api;
 
 import java.util.List;
 
-import org.generation.italy.demo.pojo.Category;
 import org.generation.italy.demo.pojo.Foto;
 import org.generation.italy.demo.service.CategoryService;
 import org.generation.italy.demo.service.FotoService;
@@ -20,8 +19,6 @@ public class FotoApiController {
 
 	@Autowired
 	private FotoService fotoService;
-	@Autowired
-	private CategoryService categoryService;
 	
 	@GetMapping("/all")
 	public List<Foto> getAllFoto(){		
