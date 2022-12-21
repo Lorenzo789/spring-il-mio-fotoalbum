@@ -68,7 +68,7 @@ public class SpringIlMioFotoalbum1Application implements CommandLineRunner{
 		List<Category> categories = categoryService.findAll();
 		System.err.println(categories);
 		
-		Foto f1 = new Foto("foto1", "bella", "https://picsum.photos/200", "funny", true, categories);
+		Foto f1 = new Foto("foto1", "bella", "https://picsum.photos/200", "night", true, categories);
 		Foto f2 = new Foto("foto2", "bella", "https://picsum.photos/200", "funny", true, categories);
 		Foto f3 = new Foto("foto3", "bella", "https://picsum.photos/200", "funny", true, categories);
 		Foto f4 = new Foto("foto4", "bella", "https://picsum.photos/200", "funny", true, categories);

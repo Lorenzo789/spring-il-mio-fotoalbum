@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
@@ -32,10 +33,22 @@ public class FotoController {
 	private FotoService fotoService;
 	
 	@GetMapping
-	public String index(Model model) {
+	public String index(@RequestParam(name="query", required=false)String query, Model model) {
 		
-		List<Foto> fotos = fotoService.findAllWComment();
+		List<Foto> fotos = null;
+		
+		if (query == null) {
+			
+			fotos = fotoService.findAllWComment();
+			
+		} else {
+			
+			fotos = fotoService.searchByTitleOrTag(query);
+			
+		}
+		
 		model.addAttribute("fotos", fotos);
+		model.addAttribute("query", query);
 		
 		return "foto-index";
 	}

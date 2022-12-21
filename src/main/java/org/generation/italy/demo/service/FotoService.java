@@ -42,6 +42,11 @@ public class FotoService{
 		fotoRepo.deleteById(id);
 	}
 	
+	public List<Foto> searchByTitleOrTag(String query) {
+		
+		return fotoRepo.findByTitleContainingOrTagContainingIgnoreCase(query, query);
+	}
+	
 	@Transactional
 	public List<Foto> findAllWComment(){
 		

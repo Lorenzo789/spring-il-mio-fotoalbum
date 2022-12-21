@@ -143,6 +143,7 @@ public class Foto {
 	}
 	
 	public void removeCategory(Category category) {
+		
 		getCategories().remove(category);
 	}
 	//custom methods
