@@ -18,6 +18,10 @@
                     <h3>{{ foto.title }}</h3>
                     <p>Description: {{ foto.description }}</p>
                     <h5>Tags: {{ foto.tag }}</h5>
+                    <strong>Categories:</strong>
+                    <span v-for="category in foto.categories" :key="category.id">
+                        - {{ category.name }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -30,6 +34,7 @@
 import axios from "axios";
 
 const URL_FOTO = "http://localhost:8080/api/1/foto";
+const URL_FOTO_W_CATEGORY = "http://localhost:8080/api/1/category";
 
 export default {
     name: 'Foto',
@@ -37,6 +42,7 @@ export default {
     data(){
         return{
             fotos: [],
+            fotosWCategories: [],
             searchedQuery: '',
         };
     },
@@ -61,6 +67,18 @@ export default {
             axios.get( URL_FOTO + '/all')
             .then((response) => {
                 this.fotos = response.data;
+                console.log(response.data);
+            })
+            .catch((error) =>{
+                console.log(error);
+            })
+        },
+
+        getAllFotoWCategories(){
+            axios.get( URL_FOTO_W_CATEGORY + '/all')
+            .then((response) => {
+                this.fotosWCategories = response.data;
+                console.log(response.data);
             })
             .catch((error) =>{
                 console.log(error);
@@ -70,6 +88,7 @@ export default {
 
     created(){
         this.getAllFoto();
+        this.getAllFotoWCategories();
     }
 }
 </script>

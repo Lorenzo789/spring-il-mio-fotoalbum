@@ -49,7 +49,6 @@ public class Foto {
 	private boolean visible;
 	
 	@ManyToMany(cascade = CascadeType.DETACH)
-	@JsonIgnore
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy = "foto")

@@ -59,4 +59,17 @@ public class FotoService{
 		}
 		return fotos;
 	}
+	
+	@Transactional
+	public List<Foto> findAllWCategories(){
+		
+		List<Foto> fotos = fotoRepo.findAll();
+		
+		for (Foto foto : fotos) {
+			
+			Hibernate.initialize(foto.getCategories());
+			
+		}
+		return fotos;
+	}
 }
