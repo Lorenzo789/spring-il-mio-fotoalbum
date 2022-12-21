@@ -7,6 +7,7 @@ import org.generation.italy.demo.service.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,21 @@ public class FotoApiController {
 	public List<Foto> getAllFoto(){
 		
 		List<Foto> fotos = fotoService.findAll();
+		
+		return fotos;
+	}
+	
+	@GetMapping("/search/{query}")
+	public List<Foto> searchByTitleOrTag(@PathVariable("query") String query) {
+		
+		List<Foto> fotos = null;
+		
+		if (query != null) {
+			
+			fotos = fotoService.searchByTitleOrTag(query);
+		} else {
+			fotos = fotoService.findAll();
+		}
 		
 		return fotos;
 	}
