@@ -11,9 +11,9 @@
 
         <div class="container mt-5">
             <div class="card mb-3 ms_height" v-for="foto in fotos" :key="foto.id">
-                <div class="row g-0 ms_overflow">
+                <div class="row g-0">
                     <div class="col-md-6">
-                        <img :src=foto.url class="ms_img" alt="">
+                        <img :src=foto.url alt="">
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
@@ -40,7 +40,7 @@
                             </button>
 
                             <div>
-                                <ul>
+                                <ul class="ms_height_max ms_overflow">
                                     <li v-for="comment in foto.comments" :key="comment.id">
                                         {{ comment.text }}
                                     </li>  
@@ -161,13 +161,17 @@ export default {
 
 <style lang="scss" scoped>
 .ms_overflow{
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .ms_img{
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.ms_height_max{
+    max-height: 70px;
 }
 
 .ms_height{
