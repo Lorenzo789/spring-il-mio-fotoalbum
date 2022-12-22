@@ -10,48 +10,51 @@
         </div>
 
         <div class="container mt-5">
-            <div class="card mb-3 ms_height" v-for="foto in fotos" :key="foto.id">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <img :src=foto.url alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
+            <div class="ms_height" v-for="foto in fotos" :key="foto.id">
+                <div class="card mb-3" v-if="foto.visible">
 
-                            <h5 class="card-title">{{ foto.title }}</h5>
-
-                            <p class="card-text">
-                                <strong>Desc:</strong>
-                                {{ foto.description }}
-                            </p>
-
-                            <p class="card-text">
-                                #{{ foto.tag }}
-                            </p>
-
-                            <strong>Categories:</strong>
-
-                            <span v-for="category in foto.categories" :key="category.id">
-                                - {{ category.name }}
-                            </span>
-
-                            <button class="d-block my-3 btn btn-primary" @click="findActiveFotoId(foto.id)">
-                                Add a comment
-                            </button>
-
-                            <div>
-                                <ul class="ms_height_max ms_overflow">
-                                    <li v-for="comment in foto.comments" :key="comment.id">
-                                        {{ comment.text }}
-                                    </li>  
-                                </ul>
-                            </div>
-
-                            <div v-if="activeFotoCommentId == foto.id" class="d-flex mt-4">
-                                <div class="col-auto me-2">
-                                    <input type="text" placeholder="Add A Comment" v-model="comment" class="form-control">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img :src=foto.url alt="">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+    
+                                <h5 class="card-title">{{ foto.title }}</h5>
+    
+                                <p class="card-text">
+                                    <strong>Desc:</strong>
+                                    {{ foto.description }}
+                                </p>
+    
+                                <p class="card-text">
+                                    #{{ foto.tag }}
+                                </p>
+    
+                                <strong>Categories:</strong>
+    
+                                <span v-for="category in foto.categories" :key="category.id">
+                                    - {{ category.name }}
+                                </span>
+    
+                                <button class="d-block my-3 btn btn-primary" @click="findActiveFotoId(foto.id)">
+                                    Add a comment
+                                </button>
+    
+                                <div>
+                                    <ul class="ms_height_max ms_overflow">
+                                        <li v-for="comment in foto.comments" :key="comment.id">
+                                            {{ comment.text }}
+                                        </li>  
+                                    </ul>
                                 </div>
-                                <button @click="createNewComment(foto.id)" class="btn btn-success">Add</button>
+    
+                                <div v-if="activeFotoCommentId == foto.id" class="d-flex mt-4">
+                                    <div class="col-auto me-2">
+                                        <input type="text" placeholder="Add A Comment" v-model="comment" class="form-control">
+                                    </div>
+                                    <button @click="createNewComment(foto.id)" class="btn btn-success">Add</button>
+                                </div>
                             </div>
                         </div>
                     </div>

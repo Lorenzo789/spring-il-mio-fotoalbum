@@ -72,7 +72,7 @@ public class SpringIlMioFotoalbum1Application implements CommandLineRunner{
 		Foto f2 = new Foto("foto2", "bella", "https://picsum.photos/id/237/557/300", "funny", true, categories);
 		Foto f3 = new Foto("foto3", "bella", "https://picsum.photos/id/237/557/300", "funny", true, categories);
 		Foto f4 = new Foto("foto4", "bella", "https://picsum.photos/id/237/557/300", "funny", true, categories);
-		Foto f5 = new Foto("foto5", "bella", "https://picsum.photos/id/237/557/300", "funny", true);
+		Foto f5 = new Foto("foto5", "bella", "https://picsum.photos/id/237/557/300", "funny", false);
 	
 		fotoService.save(f1);
 		fotoService.save(f2);
