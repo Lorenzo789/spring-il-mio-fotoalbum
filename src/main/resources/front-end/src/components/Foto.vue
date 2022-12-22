@@ -153,6 +153,7 @@ export default {
 
         findActiveFotoId(id){
             this.activeFotoCommentId = id;
+            this.comment = "";
         }
     },
 
