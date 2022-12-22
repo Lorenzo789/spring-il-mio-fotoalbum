@@ -37,7 +37,7 @@ public class Foto {
 	
 	@Column
 	@Lob
-	@NotEmpty(message = "this field is required")
+	@NotEmpty(message = "the url is required is required")
 	@URL(message = "the url is not valid")
 	private String url;
 	
